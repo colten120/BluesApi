@@ -29,7 +29,10 @@ processing = False
 firstCheck = True
 
 root = Tk()
-canvas = Canvas(root, bg="black", height=500, width=500)
+root.attributes('-fullscreen', True)
+screenWidth= root.winfo_screenwidth()               
+screenHeight= root.winfo_screenheight()
+canvas = Canvas(root, bg="black", height=screenHeight, width=screenWidth)
 canvas.pack()
 
 def get_data(api):
@@ -126,6 +129,8 @@ def displayTime(game):
     global bluesScore
     global opponentScore
     global opponentAbbr
+    global screenHeight
+    global screenWidth
     
     canvas.delete("all")
     
@@ -138,10 +143,10 @@ def displayTime(game):
     timeTxt =  str(minutes) + ':' + str(seconds) + '\n\n\n\n'
     nameTxt = 'STL\t'+opponentAbbr+'\n\n'
     scoreTxt = '\n\n' + str(bluesScore)+'        '+str(opponentScore)
-    canvas.create_text(250, 250, anchor="center", text=timeTxt, fill="#FFFFFF", font=("Helvetica", 32), justify='center')
-    canvas.create_text(250, 250, anchor="center", text='\n\nSTL\t     \n\n', fill="blue", font=("Helvetica", 38), justify='center')
-    canvas.create_text(250, 250, anchor="center", text='\n\n\t'+opponentAbbr+'\n\n', fill="#FFFFFF", font=("Helvetica", 38), justify='center')
-    canvas.create_text(250, 250, anchor="center", text=scoreTxt, fill="#FFFFFF", font=("Helvetica", 64), justify='center')
+    canvas.create_text(screenWidth/2, screenHeight/2, anchor="center", text=timeTxt, fill="#FFFFFF", font=("Helvetica", 32), justify='center')
+    canvas.create_text(screenWidth/2, screenHeight/2, anchor="center", text='\n\nSTL\t     \n\n', fill="blue", font=("Helvetica", 38), justify='center')
+    canvas.create_text(screenWidth/2, screenHeight/2, anchor="center", text='\n\n\t'+opponentAbbr+'\n\n', fill="#FFFFFF", font=("Helvetica", 38), justify='center')
+    canvas.create_text(screenWidth/2, screenHeight/2, anchor="center", text=scoreTxt, fill="#FFFFFF", font=("Helvetica", 64), justify='center')
     #txt = 'STL\t\t'+opponentAbbr+'\n'+bluesScore+'\t\t'+opponentScore
     #canvas.create_text(250, 250, anchor="center", text=txt, fill="#FFFFFF", font=("Helvetica", 32), justify='center')
 
@@ -149,6 +154,8 @@ def displayGoal(message, isBlues):
     global canvas
     global root
     global goalTime
+    global screenHeight
+    global screenWidth
     
     canvas.delete("all")
     
@@ -180,27 +187,34 @@ def displayGoal(message, isBlues):
 def displayGoalText(message, bgColor, txtColor):
     global canvas
     global root
+    global screenHeight
+    global screenWidth
     
     canvas.delete("all")
     txt = 'GOAL!'
     
     canvas.configure(bg=bgColor)
-    canvas.create_text(250, 250, anchor="center", text=message, fill=txtColor, font=("Helvetica", 64), justify='center')
+    canvas.create_text(screenWidth/2, screenHeight/2, anchor="center", text=message, fill=txtColor, font=("Helvetica", 64), justify='center')
 
     root.update()
         
 def displayIntermissionTimer(min, sec):
     global canvas
+    global screenHeight
+    global screenWidth
     
     canvas.delete("all")
     
     txt = 'Game will return in:\n'+str(min)+':'+str(sec);
-    canvas.create_text(250, 250, anchor="center", text=txt, fill="#FFFFFF", font=("Helvetica", 32), justify='center')
+    canvas.create_text(screenWidth/2, screenHeight/2, anchor="center", text=txt, fill="#FFFFFF", font=("Helvetica", 32), justify='center')
 
 def displayNoGame():
     global canvas
+    global screenHeight
+    global screenWidth
+    
     canvas.delete("all")
-    canvas.create_text(250, 250, anchor="center", text="No game found.", fill="#FFFFFF", font=("Helvetica", 32))
+    canvas.create_text(screenWidth/2, screenHeight/2, anchor="center", text="No game found.", fill="#FFFFFF", font=("Helvetica", 64))
 
 def resetCanvasBg():
     global canvas
@@ -243,6 +257,7 @@ def heartbeat():
                 displayNoGame()
         else:
             print('No game currently')
+            displayNoGame()
         processing = False
         root.update()
 
