@@ -8,6 +8,8 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+ 	<script src="/js/readWriteSettings.js"></script>
+
 </head>
 <body class="h-100">
 	<div id="root" class="h-100 d-flex align-items-center justify-content-center">
@@ -15,42 +17,40 @@
 			<row>
 				<h1>Settings</h1>
 			</row>
-			<form>
+			<form method="post" action="/save">
 				<div class="mb-3">
 					<label for="wifiName" class="form-label">Wi-Fi Name</label>
-					<input type="email" class="form-control" id="wifiName">
+					<input type="text" class="form-control" id="wifiName" name="wifiName" />
 				</div>
 				<div class="mb-3">
 					<label for="wifiPassword" class="form-label">Wi-Fi Password</label>
-					<input type="password" class="form-control" id="wifiPassword">
+					<input type="password" class="form-control" id="wifiPassword" name="wifiPassword" />
 				</div>
 				<div>
 					<label for="volume" class="form-label">Volume</label>
-					<input type="range" class="form-range" id="volume">
+					<input type="range" class="form-range" id="volume" name="volume" oninput="updateVolume()" />
+					<div id="volumeValue" />
 				</div>
-				<div class="mb-3">
+				<div class="mb-3 mt-3">
 					<label for="delay" class="form-label">Delay (seconds)</label>
-					<input type="range" class="form-range" min="0" max="10" step="1.0" id="delay">
+					<input type="range" class="form-range" min="0" max="20" step="1.0" id="delay" name="delay" oninput="updateDelay()" />
+					<div id="delayValue" />
 				</div>
-				<!-- <div class="mb-3 form-check">
-					<input type="checkbox" class="form-check-input" id="alertOpposingGoal">
-					<label class="form-check-label" for="alertOpposingGoal">Alert for opposing goal?</label>
-				</div> -->
-				<div class="mb-3">
+				<div class="mb-3 mt-3">
 					<label for="customGoalText" class="form-label">Custom goal text</label>
-					<input type="email" class="form-control" id="customGoalText" aria-describedby="customGoalHelp">
+					<input type="text" class="form-control" id="customGoalText" name="customGoalText" aria-describedby="customGoalHelp" />
 					<div id="customGoalHelp" class="form-text">Enter the text you want to see when a goal is scored</div>
 				</div>
 				<div class="mb-3">
 					<label for="intermissionTimer" class="form-label">Intermission timer (minutes)</label>
-					<input type="number" class="form-control" id="intermissionTimer" aria-describedby="intermissionTimeHelp">
+					<input type="number" class="form-control" id="intermissionTimer" name="intermissionTimer" aria-describedby="intermissionTimeHelp" />
 					<div id="intermissionTimerHelp" class="form-text">If blank, it will default to 15 minutes</div>
 				</div>
 				<div class="form-check form-switch mb-3">
-					<input class="form-check-input" type="checkbox" role="switch" id="alertOpposingGoal">
+					<input class="form-check-input" type="checkbox" role="switch" name="alertOpposingGoal" id="alertOpposingGoal" />
 					<label class="form-check-label" for="alertOpposingGoal">Alert for opposing goal?</label>
 				</div>
-				<button type="submit" class="btn btn-primary">Save</button>
+				<button type="submit" class="btn btn-primary" id="saveButton">Save</button>
 			</form>
 		</container>
 	</div>
